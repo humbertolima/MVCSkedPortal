@@ -1,0 +1,112 @@
+﻿@model SkedPortal.Models.User
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.first_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.first_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.last_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.last_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hash)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hash)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.permissions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.permissions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_hours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_hours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.current_hours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.current_hours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rest_start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rest_start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.availability)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.availability)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

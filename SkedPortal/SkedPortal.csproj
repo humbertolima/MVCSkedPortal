@@ -158,9 +158,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FlightsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,13 +261,20 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Employees\Login.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Employees\Invalid_Login.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Flights\Create.cshtml" />
+    <Content Include="Views\Flights\Delete.cshtml" />
+    <Content Include="Views\Flights\Details.cshtml" />
+    <Content Include="Views\Flights\Edit.cshtml" />
+    <Content Include="Views\Flights\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Flights\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
