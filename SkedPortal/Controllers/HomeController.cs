@@ -4,27 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace SkedPortal.Controllers
 {
+
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
+        [HttpGet]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "With this Aplication you will be allow to manipulate and managment avey User or Flight Attendant, avery Flight, assign fligths, remove and add new flight attendants. Finally you can control the time of rest and the time working for avery flight attendant, pilot and mechanics";
 
             return View();
         }
 
+        [HttpGet]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            
             return View();
         }
     }
+
 }

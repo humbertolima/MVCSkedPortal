@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SkedPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssignedFlights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="flight_number" Type="int" Nullable="false" />
+          <Property Name="flight_date" Type="datetime" Nullable="false" />
+          <Property Name="captain" Type="varchar" MaxLength="50" />
+          <Property Name="first_officer" Type="varchar" MaxLength="50" />
+          <Property Name="fal" Type="varchar" MaxLength="50" />
+          <Property Name="fa1" Type="varchar" MaxLength="50" />
+          <Property Name="fa2" Type="varchar" MaxLength="50" />
+          <Property Name="fa3" Type="varchar" MaxLength="50" />
+          <Property Name="fa4" Type="varchar" MaxLength="50" />
+          <Property Name="fa5" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="flight_number" Type="int" Nullable="false" />
+          <Property Name="flight_date" Type="datetime" Nullable="false" />
+          <Property Name="flight_origin" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="flight_start" Type="datetime" Nullable="false" />
+          <Property Name="flight_destination" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="flight_end" Type="datetime" Nullable="false" />
+          <Property Name="assigned" Type="bit" Nullable="false" />
+          <Property Name="completed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="photo" Type="image" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="hash" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="permissions" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="total_hours" Type="float" Nullable="false" />
+          <Property Name="current_hours" Type="float" Nullable="false" />
+          <Property Name="rest_start" Type="datetime" Nullable="false" />
+          <Property Name="availability" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SkedPortalModelStoreContainer">
+          <EntitySet Name="AssignedFlights" EntityType="Self.AssignedFlights" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SkedPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssignedFlight">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="flight_number" Type="Int32" Nullable="false" />
+          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="captain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_officer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fa1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fa2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fa3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fa4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fa5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="flight_number" Type="Int32" Nullable="false" />
+          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="flight_origin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flight_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="flight_destination" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flight_end" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="assigned" Type="Boolean" Nullable="false" />
+          <Property Name="completed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="permissions" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="total_hours" Type="Double" Nullable="false" />
+          <Property Name="current_hours" Type="Double" Nullable="false" />
+          <Property Name="rest_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="availability" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SkedPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssignedFlights" EntityType="Self.AssignedFlight" />
+          <EntitySet Name="Flights" EntityType="Self.Flight" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SkedPortalModelStoreContainer" CdmEntityContainer="SkedPortalEntities">
+          <EntitySetMapping Name="AssignedFlights">
+            <EntityTypeMapping TypeName="SkedPortalModel.AssignedFlight">
+              <MappingFragment StoreEntitySet="AssignedFlights">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
+                <ScalarProperty Name="flight_date" ColumnName="flight_date" />
+                <ScalarProperty Name="captain" ColumnName="captain" />
+                <ScalarProperty Name="first_officer" ColumnName="first_officer" />
+                <ScalarProperty Name="fal" ColumnName="fal" />
+                <ScalarProperty Name="fa1" ColumnName="fa1" />
+                <ScalarProperty Name="fa2" ColumnName="fa2" />
+                <ScalarProperty Name="fa3" ColumnName="fa3" />
+                <ScalarProperty Name="fa4" ColumnName="fa4" />
+                <ScalarProperty Name="fa5" ColumnName="fa5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="SkedPortalModel.Flight">
+              <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
+                <ScalarProperty Name="flight_date" ColumnName="flight_date" />
+                <ScalarProperty Name="flight_origin" ColumnName="flight_origin" />
+                <ScalarProperty Name="flight_start" ColumnName="flight_start" />
+                <ScalarProperty Name="flight_destination" ColumnName="flight_destination" />
+                <ScalarProperty Name="flight_end" ColumnName="flight_end" />
+                <ScalarProperty Name="assigned" ColumnName="assigned" />
+                <ScalarProperty Name="completed" ColumnName="completed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SkedPortalModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="permissions" ColumnName="permissions" />
+                <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+                <ScalarProperty Name="current_hours" ColumnName="current_hours" />
+                <ScalarProperty Name="rest_start" ColumnName="rest_start" />
+                <ScalarProperty Name="availability" ColumnName="availability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
