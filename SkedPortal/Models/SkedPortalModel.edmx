@@ -4,22 +4,22 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SkedPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SkedPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssignedFlights">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="flight_number" Type="int" Nullable="false" />
-          <Property Name="flight_date" Type="datetime" Nullable="false" />
-          <Property Name="captain" Type="varchar" MaxLength="50" />
-          <Property Name="first_officer" Type="varchar" MaxLength="50" />
-          <Property Name="fal" Type="varchar" MaxLength="50" />
-          <Property Name="fa1" Type="varchar" MaxLength="50" />
-          <Property Name="fa2" Type="varchar" MaxLength="50" />
-          <Property Name="fa3" Type="varchar" MaxLength="50" />
-          <Property Name="fa4" Type="varchar" MaxLength="50" />
-          <Property Name="fa5" Type="varchar" MaxLength="50" />
+          <Property Name="flight_date" Type="date" Nullable="false" />
+          <Property Name="captain" Type="int" />
+          <Property Name="first_officer" Type="int" />
+          <Property Name="fal" Type="int" />
+          <Property Name="fa1" Type="int" />
+          <Property Name="fa2" Type="int" />
+          <Property Name="fa3" Type="int" />
+          <Property Name="fa4" Type="int" />
+          <Property Name="fa5" Type="int" />
         </EntityType>
         <EntityType Name="Flights">
           <Key>
@@ -27,13 +27,13 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="flight_number" Type="int" Nullable="false" />
-          <Property Name="flight_date" Type="datetime" Nullable="false" />
+          <Property Name="flight_date" Type="date" Nullable="false" />
           <Property Name="flight_origin" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="flight_start" Type="datetime" Nullable="false" />
+          <Property Name="flight_start" Type="time" Precision="7" Nullable="false" />
           <Property Name="flight_destination" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="flight_end" Type="datetime" Nullable="false" />
-          <Property Name="assigned" Type="bit" Nullable="false" />
-          <Property Name="completed" Type="bit" Nullable="false" />
+          <Property Name="flight_end" Type="time" Precision="7" Nullable="false" />
+          <Property Name="assigned" Type="bit" />
+          <Property Name="completed" Type="bit" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -47,18 +47,17 @@
           <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="hash" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="permissions" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="total_hours" Type="float" Nullable="false" />
-          <Property Name="current_hours" Type="float" Nullable="false" />
-          <Property Name="rest_start" Type="datetime" Nullable="false" />
-          <Property Name="availability" Type="bit" Nullable="false" />
+          <Property Name="total_hours" Type="float" />
+          <Property Name="current_hours" Type="float" />
+          <Property Name="rest_start" Type="datetime" />
+          <Property Name="availability" Type="bit" />
         </EntityType>
         <EntityContainer Name="SkedPortalModelStoreContainer">
           <EntitySet Name="AssignedFlights" EntityType="Self.AssignedFlights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SkedPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -68,15 +67,15 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="flight_number" Type="Int32" Nullable="false" />
-          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="captain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="first_officer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fa1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fa2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fa3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fa4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fa5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="captain" Type="Int32" />
+          <Property Name="first_officer" Type="Int32" />
+          <Property Name="fal" Type="Int32" />
+          <Property Name="fa1" Type="Int32" />
+          <Property Name="fa2" Type="Int32" />
+          <Property Name="fa3" Type="Int32" />
+          <Property Name="fa4" Type="Int32" />
+          <Property Name="fa5" Type="Int32" />
         </EntityType>
         <EntityType Name="Flight">
           <Key>
@@ -84,13 +83,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="flight_number" Type="Int32" Nullable="false" />
-          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="flight_origin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="flight_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="flight_start" Type="Time" Nullable="false" Precision="7" />
           <Property Name="flight_destination" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="flight_end" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="assigned" Type="Boolean" Nullable="false" />
-          <Property Name="completed" Type="Boolean" Nullable="false" />
+          <Property Name="flight_end" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="assigned" Type="Boolean" />
+          <Property Name="completed" Type="Boolean" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -104,10 +103,10 @@
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="hash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="permissions" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="total_hours" Type="Double" Nullable="false" />
-          <Property Name="current_hours" Type="Double" Nullable="false" />
-          <Property Name="rest_start" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="availability" Type="Boolean" Nullable="false" />
+          <Property Name="total_hours" Type="Double" />
+          <Property Name="current_hours" Type="Double" />
+          <Property Name="rest_start" Type="DateTime" Precision="3" />
+          <Property Name="availability" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="SkedPortalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AssignedFlights" EntityType="Self.AssignedFlight" />

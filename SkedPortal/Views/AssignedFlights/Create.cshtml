@@ -1,0 +1,160 @@
+﻿@model SkedPortal.Models.AssignedFlight
+
+@{
+    ViewBag.Title = "Assign Flight";
+}
+
+<h2>Assign Flight</h2>
+<h4>@ViewBag.Error</h4>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>AssignedFlight</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2"> Flight Number</label>
+            <div class="col-md-10">
+                <input type="text" name ="flight_number" class="form-control" value=@ViewBag.Number readonly/>
+                @Html.ValidationMessageFor(model => model.flight_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Flight Date</label>
+            <div class="col-md-10">
+                <input type="text" name ="flight_date" class="form-control" value=@ViewBag.Date readonly />
+                @Html.ValidationMessageFor(model => model.flight_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Captain</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="captain" >
+                    <option></option>
+                    @foreach(var cap in ViewBag.Captains)
+                    {
+                        <option value="@cap.id">@cap.first_name @cap.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.captain, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">First Officer</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="first_officer" >
+                    <option></option>
+                    @foreach (var cap in ViewBag.Captains)
+                    {
+                        <option value="@cap.id">@cap.first_name @cap.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.first_officer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FAl</label>
+            <div class="col-md-10">
+                <select class="form-control" name ="fal" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FA1</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="fa1" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fa1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FA2</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="fa2" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fa2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FA3</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="fa3" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fa3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FA4</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="fa4" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fa4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">FA5</label>
+            <div class="col-md-10">
+                <select class="form-control"name ="fa5" >
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.fa5, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

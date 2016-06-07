@@ -12,7 +12,6 @@ namespace SkedPortal.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
     public partial class Flight
     {
         public int id { get; set; }
@@ -23,12 +22,12 @@ namespace SkedPortal.Models
         [Required]
         public string flight_origin { get; set; }
         [Required]
-        public System.DateTime flight_start { get; set; }
+        public System.TimeSpan flight_start { get; set; }
         [Required]
         public string flight_destination { get; set; }
         [Required]
-        public System.DateTime flight_end { get; set; }
-        public bool assigned { get; set; }
-        public bool completed { get; set; }
+        public System.TimeSpan flight_end { get; set; }
+        public Nullable<bool> assigned { get; set; }
+        public Nullable<bool> completed { get; set; }
     }
 }

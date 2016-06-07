@@ -11,59 +11,31 @@ using System.Web.Security;
 
 namespace SkedPortal.Controllers
 {
+    
+    [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
 
         private SkedPortalEntities db = new SkedPortalEntities();
-    
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        public ActionResult Login(User model)
+        public bool Validate(User user)
         {
-            User user = db.Users.Where(x => x.email.Equals(model.email) && x.hash.Equals(model.hash)).FirstOrDefault();
-            if (user != null)
+            if (user.rest_start < DateTime.Now)
             {
-                FormsAuthentication.SetAuthCookie(user.username, false);
-                return RedirectToAction("Dashboard", user);
+                ViewBag.Error = "Rest Start Incorrect";
+                return false;
             }
             else
-            {
-                ViewBag.Error = "Invalid User";
-                return View();
-            }
-
+                return true;
         }
 
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
-        }
-     
-
-    // GET: Users
-    public ActionResult Index()
+        // GET: Users
+        public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
-        //public ActionResult Dashboard(User user)
-        //{
-        //    if(user.permissions == "Admin")
-        //    {
-
-        //    }
-        //    if(user.permissions == "Pilot")
-        //    { }
-        //    if(user.permissions == "FA")
-        //    { }
-        //}
+       
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
@@ -82,26 +54,41 @@ namespace SkedPortal.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            List<string> roles = new List<string>() { "Admin", "Pilot", "FA"};
-            ViewBag.Roles = new SelectList(roles);
             return View();
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,photo,first_name,last_name,email,username,hash,permissions,total_hours,current_hours,rest_start,availability")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                if (!Validate_Username(user))
+                {
+                    user.current_hours = 0; user.availability = true; user.total_hours = 0;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(user);
+        }
+
+        private bool Validate_Username(User user)
+        {
+            User temp = db.Users.Where(x => x.username == user.username).First();
+            if (temp == null)
+            {
+                return false;
+            }
+            else
+            {
+                ViewBag.Username_Error = "This username already exist";
+                return true;
+            }
         }
 
         // GET: Users/Edit/5
@@ -120,17 +107,18 @@ namespace SkedPortal.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,photo,first_name,last_name,email,username,hash,permissions,total_hours,current_hours,rest_start,availability")] User user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Validate(user))
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!Validate_Username(user))
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             return View(user);
         }

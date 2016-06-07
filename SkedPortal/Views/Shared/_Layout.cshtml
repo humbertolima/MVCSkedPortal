@@ -24,15 +24,27 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Users")</li>
-                    <li>@Html.ActionLink("Employees", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Flights", "Index", "Flights")</li>
-                    <li>@Html.ActionLink("Active Flights", "Active_Flights", "Flights")</li>
-                    <li>@Html.ActionLink("Completed Flights", "Completed_Flights", "Flights")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Employees")</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Employees")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li>@Html.ActionLink("Employees", "Index", "Users")</li>
+                                <li>@Html.ActionLink("Flights", "Index", "Flights")</li>
+                                <li>@Html.ActionLink("Assigned Flights", "Index", "AssignedFlights")</li>
+                                <li>@Html.ActionLink("Current Flights", "Current_Flights", "Dashboard")</li>
+                                <li>@Html.ActionLink("Completed Flights", "Completed_Flights", "Dashboard")</li>
+                        }
+
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li>@Html.ActionLink("Welcome: " + User.Identity.Name, "", "")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SkedPortal.Models.AssignedFlight>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.flight_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.flight_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.captain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.first_officer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fa1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fa2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fa3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fa4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fa5)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.flight_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.flight_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.captain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.first_officer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fa1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fa2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fa3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fa4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fa5)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

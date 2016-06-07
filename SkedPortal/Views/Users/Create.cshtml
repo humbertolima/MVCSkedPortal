@@ -5,7 +5,8 @@
 }
 
 <h2>Create</h2>
-
+<h4>@ViewBag.Error</h4>
+<h4>@ViewBag.Username_Error</h4>
 
 @using (Html.BeginForm()) 
 {
@@ -59,7 +60,11 @@
         <div class="form-group">
             <label class="control-label col-md-2">Role</label>
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.permissions, ViewBag.Roles as SelectList, new { htmlAttributes = new { @class = "btn btn-default" } })
+                <select name="permissions" class="form-control">
+                    <option>Admin</option>
+                    <option>Pilot</option>
+                    <option>FA</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.permissions, "", new { @class = "text-danger" })
             </div>
         </div>

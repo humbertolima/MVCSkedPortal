@@ -11,34 +11,20 @@ namespace SkedPortal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         public int id { get; set; }
-        
         public byte[] photo { get; set; }
-        [Required]
         public string first_name { get; set; }
-        [Required]
         public string last_name { get; set; }
-        [Required]
-        [EmailAddress]
-        [Key]
         public string email { get; set; }
-        [Key]
-        [Required]
-        [MaxLength(20,ErrorMessage ="The username must be not longer than 20 characters")]
         public string username { get; set; }
-        [Required]
-        [MinLength(8,ErrorMessage ="The password must be not less than 8 characters")]
-        [MaxLength(20)]
         public string hash { get; set; }
-        [Required]
         public string permissions { get; set; }
-        public double total_hours { get; set; }
-        public double current_hours { get; set; }
-        public System.DateTime rest_start { get; set; }
-        public bool availability { get; set; }
+        public Nullable<double> total_hours { get; set; }
+        public Nullable<double> current_hours { get; set; }
+        public Nullable<System.DateTime> rest_start { get; set; }
+        public Nullable<bool> availability { get; set; }
     }
 }

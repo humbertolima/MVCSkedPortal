@@ -1,14 +1,5 @@
 ﻿@model IEnumerable<SkedPortal.Models.Flight>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -29,16 +20,11 @@
         <th>
             Flight End
         </th>
-        <th>
-            Assigned
-        </th>
-        <th>
-            Completed
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.flight_number)
@@ -59,22 +45,9 @@
             @Html.DisplayFor(modelItem => item.flight_end)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.assigned)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.completed)
-        </td>
-        <td>
-            @if(item.assigned == false || item.assigned == null)
-            {
-                @Html.ActionLink("Assign", "Assign", new { id = item.id })
-
-            } 
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Ajax.ActionLink("Crew", "Crew", new { flight_number = item.flight_number }, new AjaxOptions() { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = item.flight_number.ToString() })
         </td>
     </tr>
+    <tbody id="@item.flight_number"></tbody>
 }
-
-</table>
+ </table>

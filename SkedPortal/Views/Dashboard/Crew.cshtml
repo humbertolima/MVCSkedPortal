@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SkedPortal.Models.User>
+
+
+<table class="table">
+    <tr>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Function
+        </th>
+        <th></th>
+    </tr>
+    @{
+        int i = 0;
+        foreach (var item in Model)
+        {
+
+            if (item != null)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.first_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.last_name)
+                </td>
+                <td>
+                    @ViewBag.Roles[i]
+                </td>
+            </tr>
+            }
+            i++;
+        }
+     }
+    @Ajax.ActionLink("Close", "Close", "Dashboard", new AjaxOptions() { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = ViewBag.Index })
+</table>

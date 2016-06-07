@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace SkedPortal.Controllers
 {
-
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         

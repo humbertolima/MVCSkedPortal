@@ -1,0 +1,98 @@
+﻿@model SkedPortal.Models.AssignedFlight
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssignedFlight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.flight_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.flight_number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.flight_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.flight_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.captain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.captain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.first_officer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.first_officer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fa1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fa1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fa2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fa2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fa3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fa3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fa4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fa4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fa5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fa5)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

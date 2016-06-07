@@ -10,10 +10,34 @@ using SkedPortal.Models;
 
 namespace SkedPortal.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FlightsController : Controller
     {
         private SkedPortalEntities db = new SkedPortalEntities();
 
+        public bool Validate(Flight flight)
+        {
+            if (flight.flight_date.CompareTo(DateTime.Now)==-1)
+            {
+                ViewBag.Error = "Date is incorrect";
+                return false;
+            }
+            else if (flight.flight_end.CompareTo(flight.flight_start)==-1)
+            {
+                ViewBag.Error = "Flight End or Flight Start is incorrect";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //Get
+        public ActionResult Assign(int id)
+        {
+            return RedirectToAction("Create", "AssignedFlights", db.Flights.Find(id));
+        }
         // GET: Flights
         public ActionResult Index()
         {
@@ -42,22 +66,35 @@ namespace SkedPortal.Controllers
         }
 
         // POST: Flights/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,flight_number,flight_date,flight_origin,flight_start,flight_destination,flight_end,assigned,completed")] Flight flight)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Validate(flight))
             {
-                db.Flights.Add(flight);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!Validate_flight(flight.flight_number))
+                {
+                    flight.assigned = false; flight.completed = false;
+                    db.Flights.Add(flight);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
             return View(flight);
         }
-
+        private bool Validate_flight(int fn)
+        {
+            Flight temp = db.Flights.Where(x => x.flight_number == fn).FirstOrDefault();
+            if (temp == null)
+            {
+                return false;
+            }
+            else
+            {
+                ViewBag.Flight_Error = "This Flight already exist";
+                return true;
+            }
+        }
         // GET: Flights/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -70,21 +107,32 @@ namespace SkedPortal.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Model = flight;
             return View(flight);
         }
 
         // POST: Flights/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,flight_number,flight_date,flight_origin,flight_start,flight_destination,flight_end,assigned,completed")] Flight flight)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Validate(flight))
             {
-                db.Entry(flight).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!Validate_flight(flight.flight_number))
+                {
+                    if (flight.assigned == false)
+                    {
+                        AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).First();
+                        if (af != null)
+                        {
+                            db.AssignedFlights.Remove(af);
+                        }
+                    }
+                    db.Entry(flight).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                 }
             }
             return View(flight);
         }
@@ -109,7 +157,10 @@ namespace SkedPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Flight flight = db.Flights.Find(id);
+            AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault();
+            db.AssignedFlights.Remove(af);
             db.Flights.Remove(flight);
             db.SaveChanges();
             return RedirectToAction("Index");
