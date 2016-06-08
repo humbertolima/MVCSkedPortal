@@ -129,6 +129,11 @@ namespace SkedPortal.Controllers
                             db.AssignedFlights.Remove(af);
                         }
                     }
+                    else
+                    {
+                        db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault().flight_date = flight.flight_date;
+                        db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault().flight_number = flight.flight_number;
+                    }
                     db.Entry(flight).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

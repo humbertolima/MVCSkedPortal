@@ -118,6 +118,23 @@ namespace SkedPortal.Controllers
             {
                 return HttpNotFound();
             }
+            List<User> pilots = db.Users.Where(x => x.permissions == "Pilot" && x.availability == true).ToList();
+            List<User> fas = db.Users.Where(x => x.permissions == "FA" && x.availability == true).ToList();
+
+            if (pilots.Count() > 0)
+            {
+                ViewBag.Captains = pilots;
+            }
+            else
+            { ViewBag.Captains = ""; }
+
+            if (fas.Count() > 0)
+            {
+                ViewBag.FAs = fas;
+            }
+            else
+            { ViewBag.FAs = ""; }
+
             return View(assignedFlight);
         }
 
@@ -126,7 +143,7 @@ namespace SkedPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,flight_number,flight_date,captain,first_officer,fal,fa1,fa2,fa3,fa4,fa5")] AssignedFlight assignedFlight)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Validate(assignedFlight))
             {
                 db.Entry(assignedFlight).State = EntityState.Modified;
                 db.SaveChanges();

@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>AssignedFlight</h4>
         <hr />
@@ -18,88 +18,136 @@
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.flight_number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2"> Flight Number</label>
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.flight_number, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.DisplayFor(model => model.flight_number, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.flight_number, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.flight_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2"> Flight Date</label>
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.flight_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.flight_date, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.flight_date, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.captain, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Captain</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.captain, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="captain">
+                    <option></option>
+                    @foreach (var cap in ViewBag.Captains)
+                    {
+                        <option value="@cap.id">@cap.first_name @cap.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.captain, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.first_officer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">First Officer</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.first_officer, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="first_officer">
+                    <option></option>
+                    @foreach (var cap in ViewBag.Captains)
+                    {
+                        <option value="@cap.id">@cap.first_name @cap.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.first_officer, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FAl</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fal, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fal">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fal, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fa1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FA1</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fa1, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fa1">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fa1, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fa2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FA2</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fa2, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fa2">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fa2, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fa3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FA3</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fa3, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fa3">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fa3, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fa4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FA4</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fa4, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fa4">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fa4, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fa5, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">FA5</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fa5, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" name="fa5">
+                    <option></option>
+                    @foreach (var fas in ViewBag.FAs)
+                    {
+                        <option value="@fas.id">@fas.first_name @fas.last_name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.fa5, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

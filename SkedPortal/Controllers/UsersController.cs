@@ -79,7 +79,7 @@ namespace SkedPortal.Controllers
 
         private bool Validate_Username(User user)
         {
-            User temp = db.Users.Where(x => x.username == user.username).First();
+            User temp = db.Users.Where(x => x.username == user.username).FirstOrDefault();
             if (temp == null)
             {
                 return false;
