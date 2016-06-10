@@ -45,6 +45,70 @@ namespace SkedPortal.Controllers
         // GET: AssignedFlights
         public ActionResult Index()
         {
+            List<List<string>> crew = new List<List<string>>();
+            List<AssignedFlight> af = db.AssignedFlights.ToList();
+            foreach(var i in af)
+            {
+                List<string> names = new List<string>();
+                User captain = db.Users.Where(x => x.id == i.captain).FirstOrDefault();
+                User fo = db.Users.Where(x => x.id == i.first_officer).FirstOrDefault();
+                User fal = db.Users.Where(x => x.id == i.fal).FirstOrDefault();
+                User fa1 = db.Users.Where(x => x.id == i.fa1).FirstOrDefault();
+                User fa2 = db.Users.Where(x => x.id == i.fa2).FirstOrDefault();
+                User fa3 = db.Users.Where(x => x.id == i.fa3).FirstOrDefault();
+                User fa4 = db.Users.Where(x => x.id == i.fa4).FirstOrDefault();
+                User fa5 = db.Users.Where(x => x.id == i.fa5).FirstOrDefault();
+                if (captain != null)
+                {
+                    names.Add(captain.first_name + " " + captain.last_name);
+                }
+                else
+                    names.Add("");
+                if (fo != null)
+                {
+                    names.Add(fo.first_name + " " + fo.last_name);
+                }
+                else
+                    names.Add("");
+                if (fal != null)
+                {
+                    names.Add(fal.first_name + " " + fal.last_name);
+                }
+                else
+                    names.Add("");
+                if (fa1 != null)
+                {
+                    names.Add(fa1.first_name + " " + fa1.last_name);
+                }
+                else
+                    names.Add("");
+                if (fa2 != null)
+                {
+                    names.Add(fa2.first_name + " " + fa2.last_name);
+                }
+                else
+                    names.Add("");
+                if (fa3 != null)
+                {
+                    names.Add(fa3.first_name + " " + fa3.last_name);
+                }
+                else
+                    names.Add("");
+                if (fa4 != null)
+                {
+                    names.Add(fa4.first_name + " " + fa4.last_name);
+                }
+                else
+                    names.Add("");
+                if (fa5 != null)
+                {
+                    names.Add(fa5.first_name + " " + fa5.last_name);
+                }
+                else
+                    names.Add("");
+                crew.Add(names);
+            }
+            ViewBag.Names = crew;
             return View(db.AssignedFlights.ToList());
         }
 
@@ -82,7 +146,7 @@ namespace SkedPortal.Controllers
             }
             else
             { ViewBag.FAs = ""; }
-      
+            ViewBag.FId = f.id;
             ViewBag.Number = f.flight_number;
             ViewBag.Date = f.flight_date;
             return View();
@@ -91,7 +155,7 @@ namespace SkedPortal.Controllers
         // POST: AssignedFlights/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,flight_number,flight_date,captain,first_officer,fal,fa1,fa2,fa3,fa4,fa5")] AssignedFlight assignedFlight)
+        public ActionResult Create([Bind(Include = "id, flight_id,flight_number,flight_date,captain,first_officer,fal,fa1,fa2,fa3,fa4,fa5")] AssignedFlight assignedFlight)
         {
             if (ModelState.IsValid && Validate(assignedFlight))
             {
@@ -113,11 +177,103 @@ namespace SkedPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AssignedFlight assignedFlight = db.AssignedFlights.Find(id);
-            if (assignedFlight == null)
+            AssignedFlight af = db.AssignedFlights.Find(id);
+            if (af == null)
             {
                 return HttpNotFound();
             }
+            List<int> ids = new List<int>();
+            List<string> names = new List<string>();
+            User captain = db.Users.Where(x => x.id == af.captain).FirstOrDefault();
+            User fo = db.Users.Where(x => x.id == af.first_officer).FirstOrDefault();
+            User fal = db.Users.Where(x => x.id == af.fal).FirstOrDefault();
+            User fa1 = db.Users.Where(x => x.id == af.fa1).FirstOrDefault();
+            User fa2 = db.Users.Where(x => x.id == af.fa2).FirstOrDefault();
+            User fa3 = db.Users.Where(x => x.id == af.fa3).FirstOrDefault();
+            User fa4 = db.Users.Where(x => x.id == af.fa4).FirstOrDefault();
+            User fa5 = db.Users.Where(x => x.id == af.fa5).FirstOrDefault();
+            if (captain != null)
+            {
+                names.Add(captain.first_name + " " + captain.last_name);
+                ids.Add(captain.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fo != null)
+            {
+                names.Add(fo.first_name + " " + fo.last_name);
+                ids.Add(fo.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fal != null)
+            {
+                names.Add(fal.first_name + " " + fal.last_name);
+                ids.Add(fal.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fa1 != null)
+            {
+                names.Add(fa1.first_name + " " + fa1.last_name);
+                ids.Add(fa1.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fa2 != null)
+            {
+                names.Add(fa2.first_name + " " + fa2.last_name);
+                ids.Add(fa2.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fa3 != null)
+            {
+                names.Add(fa3.first_name + " " + fa3.last_name);
+                ids.Add(fa3.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fa4 != null)
+            {
+                names.Add(fa4.first_name + " " + fa4.last_name);
+                ids.Add(fa4.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            if (fa5 != null)
+            {
+                names.Add(fa5.first_name + " " + fa5.last_name);
+                ids.Add(fa5.id);
+            }
+            else
+            {
+                names.Add("");
+                ids.Add(-1);
+            }
+            ViewBag.IDs = ids;
+            ViewBag.Names = names;
             List<User> pilots = db.Users.Where(x => x.permissions == "Pilot" && x.availability == true).ToList();
             List<User> fas = db.Users.Where(x => x.permissions == "FA" && x.availability == true).ToList();
 
@@ -135,13 +291,13 @@ namespace SkedPortal.Controllers
             else
             { ViewBag.FAs = ""; }
 
-            return View(assignedFlight);
+            return View(af);
         }
 
         // POST: AssignedFlights/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,flight_number,flight_date,captain,first_officer,fal,fa1,fa2,fa3,fa4,fa5")] AssignedFlight assignedFlight)
+        public ActionResult Edit([Bind(Include = "id,flight_id,flight_number,flight_date,captain,first_officer,fal,fa1,fa2,fa3,fa4,fa5")] AssignedFlight assignedFlight)
         {
             if (ModelState.IsValid && Validate(assignedFlight))
             {
@@ -149,7 +305,7 @@ namespace SkedPortal.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(assignedFlight);
+            return RedirectToAction("Edit", assignedFlight.id);
         }
 
         // GET: AssignedFlights/Delete/5
@@ -173,6 +329,7 @@ namespace SkedPortal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AssignedFlight assignedFlight = db.AssignedFlights.Find(id);
+            db.Flights.Where(x => x.flight_number == assignedFlight.flight_number).First().assigned = false;
             db.AssignedFlights.Remove(assignedFlight);
             db.SaveChanges();
             return RedirectToAction("Index");

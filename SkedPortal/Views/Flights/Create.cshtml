@@ -13,6 +13,7 @@
     
     <div class="form-horizontal">
         <h4>Flight</h4>
+        <input type="text" hidden value="@ViewBag.FId" name="flight_id"/>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

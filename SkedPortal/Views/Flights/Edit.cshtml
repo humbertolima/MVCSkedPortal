@@ -45,7 +45,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight Start</label>
             <div class="col-md-10">
-                <input type="time" name ="flight_start" class="form-control" required value="@ViewBag.Model.flight_start" />
+                @Html.EditorFor(model => model.flight_start, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.flight_start, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +61,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight End</label>
             <div class="col-md-10">
-                <input type="time" name ="flight_end" class="form-control" required value="@ViewBag.Model.flight_end" />
+                @Html.EditorFor(model => model.flight_end, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.flight_end, "", new { @class = "text-danger" })
             </div>
         </div>

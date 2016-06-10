@@ -44,44 +44,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@for(int i = 0, j =0; i <Model.Count() && j<ViewBag.Names.Count; i++, j++) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.flight_number)
+            @Model.ElementAt(i).flight_number
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.flight_date)
+            @Model.ElementAt(i).flight_date
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.captain)
+            @ViewBag.Names[j][0]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.first_officer)
+            @ViewBag.Names[j][1]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fal)
+            @ViewBag.Names[j][2]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fa1)
+            @ViewBag.Names[j][3]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fa2)
+            @ViewBag.Names[j][4]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fa3)
+            @ViewBag.Names[j][5]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fa4)
+            @ViewBag.Names[j][6]
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fa5)
+            @ViewBag.Names[j][7]
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(i).id }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(i).id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(i).id })
         </td>
     </tr>
 }
+
 
 </table>

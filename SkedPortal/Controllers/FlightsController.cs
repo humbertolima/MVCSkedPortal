@@ -13,6 +13,7 @@ namespace SkedPortal.Controllers
     [Authorize(Roles = "Admin")]
     public class FlightsController : Controller
     {
+
         private SkedPortalEntities db = new SkedPortalEntities();
 
         public bool Validate(Flight flight)
@@ -72,7 +73,7 @@ namespace SkedPortal.Controllers
         {
             if (ModelState.IsValid && Validate(flight))
             {
-                if (!Validate_flight(flight.flight_number))
+                if (!Validate_flight(flight.flight_number, flight.id))
                 {
                     flight.assigned = false; flight.completed = false;
                     db.Flights.Add(flight);
@@ -82,9 +83,9 @@ namespace SkedPortal.Controllers
             }
             return View(flight);
         }
-        private bool Validate_flight(int fn)
+        private bool Validate_flight(int fn, int id)
         {
-            Flight temp = db.Flights.Where(x => x.flight_number == fn).FirstOrDefault();
+            Flight temp = db.Flights.Where(x => x.flight_number == fn && x.id != id).FirstOrDefault();
             if (temp == null)
             {
                 return false;
@@ -107,7 +108,7 @@ namespace SkedPortal.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Model = flight;
+
             return View(flight);
         }
 
@@ -119,11 +120,12 @@ namespace SkedPortal.Controllers
         {
             if (ModelState.IsValid && Validate(flight))
             {
-                if (!Validate_flight(flight.flight_number))
+                if (!Validate_flight(flight.flight_number, flight.id))
                 {
+                    AssignedFlight af = db.AssignedFlights.Where(x => x.flight_id == flight.id).FirstOrDefault();
                     if (flight.assigned == false)
                     {
-                        AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).First();
+                        
                         if (af != null)
                         {
                             db.AssignedFlights.Remove(af);
@@ -131,15 +133,18 @@ namespace SkedPortal.Controllers
                     }
                     else
                     {
-                        db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault().flight_date = flight.flight_date;
-                        db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault().flight_number = flight.flight_number;
+                       
+                        af.flight_date = flight.flight_date;
+                        af.flight_number = flight.flight_number;
+                        db.Entry(af).State = EntityState.Modified;
                     }
                     db.Entry(flight).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                  }
             }
-            return View(flight);
+            Flight f = db.Flights.Where(x => x.id == flight.id).FirstOrDefault();
+            return View(f);
         }
 
         // GET: Flights/Delete/5
@@ -165,7 +170,10 @@ namespace SkedPortal.Controllers
 
             Flight flight = db.Flights.Find(id);
             AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight.flight_number).FirstOrDefault();
-            db.AssignedFlights.Remove(af);
+            if (af != null)
+            {
+                db.AssignedFlights.Remove(af);
+            }
             db.Flights.Remove(flight);
             db.SaveChanges();
             return RedirectToAction("Index");

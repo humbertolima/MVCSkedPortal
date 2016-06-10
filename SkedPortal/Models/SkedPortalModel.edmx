@@ -10,6 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="flight_id" Type="int" Nullable="false" />
           <Property Name="flight_number" Type="int" Nullable="false" />
           <Property Name="flight_date" Type="date" Nullable="false" />
           <Property Name="captain" Type="int" />
@@ -76,6 +77,7 @@
           <Property Name="fa3" Type="Int32" />
           <Property Name="fa4" Type="Int32" />
           <Property Name="fa5" Type="Int32" />
+          <Property Name="flight_id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Flight">
           <Key>
@@ -122,6 +124,7 @@
           <EntitySetMapping Name="AssignedFlights">
             <EntityTypeMapping TypeName="SkedPortalModel.AssignedFlight">
               <MappingFragment StoreEntitySet="AssignedFlights">
+                <ScalarProperty Name="flight_id" ColumnName="flight_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="flight_number" ColumnName="flight_number" />
                 <ScalarProperty Name="flight_date" ColumnName="flight_date" />

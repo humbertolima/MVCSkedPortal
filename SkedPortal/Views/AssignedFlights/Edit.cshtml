@@ -6,7 +6,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -16,11 +15,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
-
+        <div>
+            <input hidden type="text" name="flight_id" value="@Model.flight_id" />
+        </div>
         <div class="form-group">
             <label class="control-label col-md-2"> Flight Number</label>
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.flight_number, "", new { @class = "form-control" })
+                <input type="text" name="flight_number" class="form-control" value="@Model.flight_number" readonly />
                 @Html.ValidationMessageFor(model => model.flight_number, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +29,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight Date</label>
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.flight_date, "", new { @class = "form-control" })
+                <input type="text" name="flight_date" class="form-control" value="@Model.flight_date" readonly />
                 @Html.ValidationMessageFor(model => model.flight_date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,6 +38,11 @@
             <label class="control-label col-md-2">Captain</label>
             <div class="col-md-10">
                 <select class="form-control" name="captain">
+                    @if (ViewBag.IDs[0] != -1)
+                    {
+                        <option value="@ViewBag.IDs[0]">@ViewBag.Names[0]</option>
+
+                    }
                     <option></option>
                     @foreach (var cap in ViewBag.Captains)
                     {
@@ -51,6 +57,11 @@
             <label class="control-label col-md-2">First Officer</label>
             <div class="col-md-10">
                 <select class="form-control" name="first_officer">
+                    @if (ViewBag.IDs[1] != -1)
+                    {
+                        <option value="@ViewBag.IDs[1]">@ViewBag.Names[1]</option>
+
+                    }
                     <option></option>
                     @foreach (var cap in ViewBag.Captains)
                     {
@@ -65,6 +76,11 @@
             <label class="control-label col-md-2">FAl</label>
             <div class="col-md-10">
                 <select class="form-control" name="fal">
+                    @if (ViewBag.IDs[2] != -1)
+                    {
+                        <option value="@ViewBag.IDs[2]">@ViewBag.Names[2]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -79,6 +95,11 @@
             <label class="control-label col-md-2">FA1</label>
             <div class="col-md-10">
                 <select class="form-control" name="fa1">
+                    @if (ViewBag.IDs[3] != -1)
+                    {
+                        <option value="@ViewBag.IDs[3]">@ViewBag.Names[3]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -93,6 +114,11 @@
             <label class="control-label col-md-2">FA2</label>
             <div class="col-md-10">
                 <select class="form-control" name="fa2">
+                    @if (ViewBag.IDs[4] != -1)
+                    {
+                        <option value="@ViewBag.IDs[4]">@ViewBag.Names[4]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -107,6 +133,11 @@
             <label class="control-label col-md-2">FA3</label>
             <div class="col-md-10">
                 <select class="form-control" name="fa3">
+                    @if (ViewBag.IDs[5] != -1)
+                    {
+                        <option value="@ViewBag.IDs[5]">@ViewBag.Names[5]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -121,6 +152,11 @@
             <label class="control-label col-md-2">FA4</label>
             <div class="col-md-10">
                 <select class="form-control" name="fa4">
+                    @if (ViewBag.IDs[6] != -1)
+                    {
+                        <option value="@ViewBag.IDs[6]">@ViewBag.Names[6]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -135,6 +171,11 @@
             <label class="control-label col-md-2">FA5</label>
             <div class="col-md-10">
                 <select class="form-control" name="fa5">
+                    @if (ViewBag.IDs[7] != -1)
+                    {
+                        <option value="@ViewBag.IDs[7]">@ViewBag.Names[7]</option>
+
+                    }
                     <option></option>
                     @foreach (var fas in ViewBag.FAs)
                     {
@@ -147,7 +188,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
