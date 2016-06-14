@@ -17,8 +17,8 @@ namespace SkedPortal.Controllers
             User user = db.Users.Where(x => x.username == User.Identity.Name).FirstOrDefault();
             if (User.IsInRole("Admin"))
             {
-                if (db.Flights.Where(x => x.assigned == true).OrderBy(x => x.flight_date).ToList() != null)
-                    return View(db.Flights.Where(x => x.assigned == true).OrderBy(x => x.flight_date).ToList());
+                if (db.Flights.Where(x => x.assigned == true && x.completed == false).OrderBy(x => x.flight_date).ToList() != null)
+                    return View(db.Flights.Where(x => x.assigned == true && x.completed == false).OrderBy(x => x.flight_date).ToList());
                 else
                     return View();
             }
@@ -29,7 +29,7 @@ namespace SkedPortal.Controllers
                 List<AssignedFlight> af = db.AssignedFlights.Where(x => x.captain == user.id || x.first_officer == user.id).ToList();
                 foreach(AssignedFlight f in af)
                 {
-                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true).FirstOrDefault());
+                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true && x.completed == false).FirstOrDefault());
                 }
                 return View(fl);
             }
@@ -39,7 +39,7 @@ namespace SkedPortal.Controllers
                 List<AssignedFlight> af = db.AssignedFlights.Where(x =>x.fal == user.id || x.fa1 == user.id || x.fa2 == user.id || x.fa3 == user.id || x.fa4 == user.id || x.fa5 == user.id).ToList();
                 foreach (AssignedFlight f in af)
                 {
-                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true).FirstOrDefault());
+                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true && x.completed == false).FirstOrDefault());
                 }
                 return View(fl);
             }

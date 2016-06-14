@@ -16,7 +16,7 @@ namespace SkedPortal.Models
     {
         public int id { get; set; }
         public int flight_number { get; set; }
-        public System.DateTime flight_date { get; set; }
+        public string flight_date { get; set; }
         public string flight_origin { get; set; }
         public System.TimeSpan flight_start { get; set; }
         public string flight_destination { get; set; }

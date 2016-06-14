@@ -27,7 +27,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight Date</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.flight_date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.flight_date, new { htmlAttributes = new { @class = "form-control", @type="date"} })
                 @Html.ValidationMessageFor(model => model.flight_date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight Start</label>
             <div class="col-md-10">
-                <input type="time" name ="flight_start" class="form-control" required placeholder=@DateTime.Now.TimeOfDay />
+                <input type="time" name ="flight_start" class="form-control" required placeholder="@DateTime.Now.TimeOfDay" />
                 @Html.ValidationMessageFor(model => model.flight_start, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Flight End</label>
             <div class="col-md-10">
-                <input type="time" name ="flight_end" class="form-control" required placeholder=@DateTime.Now.TimeOfDay />
+                <input type="time" name ="flight_end" class="form-control" required placeholder="@DateTime.Now.TimeOfDay" />
                 @Html.ValidationMessageFor(model => model.flight_end, "", new { @class = "text-danger" })
             </div>
         </div>

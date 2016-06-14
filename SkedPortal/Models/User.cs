@@ -24,7 +24,7 @@ namespace SkedPortal.Models
         public string permissions { get; set; }
         public Nullable<double> total_hours { get; set; }
         public Nullable<double> current_hours { get; set; }
-        public Nullable<System.DateTime> rest_start { get; set; }
+        public string rest_start { get; set; }
         public Nullable<bool> availability { get; set; }
     }
 }

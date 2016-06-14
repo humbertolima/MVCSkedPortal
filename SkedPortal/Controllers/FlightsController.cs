@@ -18,20 +18,15 @@ namespace SkedPortal.Controllers
 
         public bool Validate(Flight flight)
         {
-            if (flight.flight_date.CompareTo(DateTime.Now)==-1)
-            {
-                ViewBag.Error = "Date is incorrect";
-                return false;
-            }
-            else if (flight.flight_end.CompareTo(flight.flight_start)==-1)
-            {
-                ViewBag.Error = "Flight End or Flight Start is incorrect";
-                return false;
-            }
-            else
-            {
+            //if (DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now) == 1)
+            //{
+            //    ViewBag.Error = "Date is incorrect";
+            //    return false;
+            //}
+            //else
+            //{
                 return true;
-            }
+            //}
         }
 
         //Get
@@ -133,10 +128,17 @@ namespace SkedPortal.Controllers
                     }
                     else
                     {
-                       
-                        af.flight_date = flight.flight_date;
-                        af.flight_number = flight.flight_number;
-                        db.Entry(af).State = EntityState.Modified;
+                        if (af != null)
+                        {
+                            af.flight_date = flight.flight_date;
+                            af.flight_number = flight.flight_number;
+                            db.Entry(af).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            flight.assigned = false;
+                        }
+                        
                     }
                     db.Entry(flight).State = EntityState.Modified;
                     db.SaveChanges();
@@ -178,7 +180,42 @@ namespace SkedPortal.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public ActionResult Current_Flights()
+        {
+            List<Flight> current = new List<Flight>();
+            List<Flight> temp = db.Flights.Where(x => x.assigned == true && x.completed == false).ToList();
+            foreach(Flight f in temp)
+            {
+                if(DateTime.Parse(f.flight_date).CompareTo(DateTime.Now) <= 0 && f.flight_start.CompareTo(DateTime.Now.TimeOfDay) <= 0)
+                {
+                    current.Add(f);
+                }
+            }
+            return View(current);
+        }
+        public ActionResult End(int flight_number)
+        {
+            Flight f = db.Flights.Where(x => x.flight_number == flight_number).FirstOrDefault();
+            AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight_number).FirstOrDefault();
+            foreach(User u in db.Users.Where(x => x.id == af.captain || x.id == af.first_officer || x.id == af.fal || x.id == af.fa1 || x.id == af.fa2 || x.id == af.fa3 || x.id == af.fa4 || x.id == af.fa5).ToList())
+            {
+                if (u.current_hours >= 9)
+                {
+                    u.rest_start = DateTime.Now.ToString();
+                    u.availability = false;
+                }
+                else
+                {
+                    u.current_hours += f.flight_end.Subtract(f.flight_start).Hours;
+                    u.total_hours += f.flight_end.Subtract(f.flight_start).Hours;
+                }
+            }
+            db.Flights.Where(x => x.flight_number == flight_number).FirstOrDefault().completed = true;
+            db.AssignedFlights.Remove(db.AssignedFlights.Where(x => x.flight_number == flight_number).FirstOrDefault());
+            db.SaveChanges();
+            ViewBag.End = "Flight #: " + flight_number + " ended";
+            return RedirectToAction("Current_Flights");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

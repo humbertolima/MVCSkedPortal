@@ -12,7 +12,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="flight_id" Type="int" Nullable="false" />
           <Property Name="flight_number" Type="int" Nullable="false" />
-          <Property Name="flight_date" Type="date" Nullable="false" />
+          <Property Name="flight_date" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="captain" Type="int" />
           <Property Name="first_officer" Type="int" />
           <Property Name="fal" Type="int" />
@@ -28,7 +28,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="flight_number" Type="int" Nullable="false" />
-          <Property Name="flight_date" Type="date" Nullable="false" />
+          <Property Name="flight_date" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="flight_origin" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="flight_start" Type="time" Precision="7" Nullable="false" />
           <Property Name="flight_destination" Type="varchar" MaxLength="10" Nullable="false" />
@@ -50,7 +50,7 @@
           <Property Name="permissions" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="total_hours" Type="float" />
           <Property Name="current_hours" Type="float" />
-          <Property Name="rest_start" Type="datetime" />
+          <Property Name="rest_start" Type="varchar" MaxLength="10" />
           <Property Name="availability" Type="bit" />
         </EntityType>
         <EntityContainer Name="SkedPortalModelStoreContainer">
@@ -68,7 +68,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="flight_number" Type="Int32" Nullable="false" />
-          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="flight_date" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="captain" Type="Int32" />
           <Property Name="first_officer" Type="Int32" />
           <Property Name="fal" Type="Int32" />
@@ -85,7 +85,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="flight_number" Type="Int32" Nullable="false" />
-          <Property Name="flight_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="flight_date" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="flight_origin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="flight_start" Type="Time" Nullable="false" Precision="7" />
           <Property Name="flight_destination" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
@@ -107,7 +107,7 @@
           <Property Name="permissions" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="total_hours" Type="Double" />
           <Property Name="current_hours" Type="Double" />
-          <Property Name="rest_start" Type="DateTime" Precision="3" />
+          <Property Name="rest_start" Type="String" />
           <Property Name="availability" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="SkedPortalEntities" annotation:LazyLoadingEnabled="true">

@@ -20,7 +20,7 @@ namespace SkedPortal.Controllers
 
         public bool Validate(User user)
         {
-            if (user.rest_start < DateTime.Now)
+            if (DateTime.Parse(user.rest_start).CompareTo(DateTime.Now) < 0)
             {
                 ViewBag.Error = "Rest Start Incorrect";
                 return false;
@@ -28,7 +28,6 @@ namespace SkedPortal.Controllers
             else
                 return true;
         }
-
         // GET: Users
         public ActionResult Index()
         {
@@ -68,6 +67,7 @@ namespace SkedPortal.Controllers
                 if (!Validate_Username(user))
                 {
                     user.current_hours = 0; user.availability = true; user.total_hours = 0;
+                    user.rest_start = "";
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index");

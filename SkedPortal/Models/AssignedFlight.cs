@@ -11,15 +11,12 @@ namespace SkedPortal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AssignedFlight
     {
         public int id { get; set; }
-        [Required]
         public int flight_number { get; set; }
-        [Required]
-        public System.DateTime flight_date { get; set; }
+        public string flight_date { get; set; }
         public Nullable<int> captain { get; set; }
         public Nullable<int> first_officer { get; set; }
         public Nullable<int> fal { get; set; }
@@ -28,7 +25,6 @@ namespace SkedPortal.Models
         public Nullable<int> fa3 { get; set; }
         public Nullable<int> fa4 { get; set; }
         public Nullable<int> fa5 { get; set; }
-        [Required]
         public int flight_id { get; set; }
     }
 }
