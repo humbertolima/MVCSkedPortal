@@ -15,22 +15,14 @@ namespace SkedPortal.Controllers
     [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
-
+        
+        
         private SkedPortalEntities db = new SkedPortalEntities();
 
-        public bool Validate(User user)
-        {
-            if (DateTime.Parse(user.rest_start).CompareTo(DateTime.Now) < 0)
-            {
-                ViewBag.Error = "Rest Start Incorrect";
-                return false;
-            }
-            else
-                return true;
-        }
         // GET: Users
         public ActionResult Index()
         {
+            MvcApplication.Restart();
             return View(db.Users.ToList());
         }
 
@@ -79,7 +71,7 @@ namespace SkedPortal.Controllers
 
         private bool Validate_Username(User user)
         {
-            User temp = db.Users.Where(x => x.username == user.username).FirstOrDefault();
+            User temp = db.Users.Where(x => x.username == user.username && x.id != user.id).FirstOrDefault();
             if (temp == null)
             {
                 return false;
@@ -111,10 +103,11 @@ namespace SkedPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,photo,first_name,last_name,email,username,hash,permissions,total_hours,current_hours,rest_start,availability")] User user)
         {
-            if (ModelState.IsValid && Validate(user))
+            if (ModelState.IsValid)
             {
                 if (!Validate_Username(user))
                 {
+                  
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

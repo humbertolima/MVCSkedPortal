@@ -61,6 +61,7 @@
             <label class="control-label col-md-2">Role</label>
             <div class="col-md-10">
                 <select name="permissions" class="form-control">
+                    <option></option>
                     <option>Admin</option>
                     <option>Pilot</option>
                     <option>FA</option>
@@ -88,7 +89,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Rest Start</label>
             <div class="col-md-10">
-                <input type="datetime" name="rest_start" class="form-control" placeholder="00/00/0000" />
+                <input type="text" name="rest_start" class="form-control" placeholder="00/00/0000" />
                 @Html.ValidationMessageFor(model => model.rest_start, "", new { @class = "text-danger" })
             </div>
         </div>

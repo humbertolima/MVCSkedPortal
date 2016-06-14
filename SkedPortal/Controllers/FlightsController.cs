@@ -18,15 +18,15 @@ namespace SkedPortal.Controllers
 
         public bool Validate(Flight flight)
         {
-            //if (DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now) == 1)
-            //{
-            //    ViewBag.Error = "Date is incorrect";
-            //    return false;
-            //}
-            //else
-            //{
+            if (DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now) == 1)
+            {
+                ViewBag.Error = "Date is incorrect";
+                return false;
+            }
+            else
+            {
                 return true;
-            //}
+            }
         }
 
         //Get
@@ -37,6 +37,7 @@ namespace SkedPortal.Controllers
         // GET: Flights
         public ActionResult Index()
         {
+            MvcApplication.Restart();
             return View(db.Flights.ToList());
         }
 
@@ -199,22 +200,24 @@ namespace SkedPortal.Controllers
             AssignedFlight af = db.AssignedFlights.Where(x => x.flight_number == flight_number).FirstOrDefault();
             foreach(User u in db.Users.Where(x => x.id == af.captain || x.id == af.first_officer || x.id == af.fal || x.id == af.fa1 || x.id == af.fa2 || x.id == af.fa3 || x.id == af.fa4 || x.id == af.fa5).ToList())
             {
+                u.current_hours += f.flight_end.Subtract(f.flight_start).Hours;
+                u.total_hours += f.flight_end.Subtract(f.flight_start).Hours;
                 if (u.current_hours >= 9)
                 {
-                    u.rest_start = DateTime.Now.ToString();
+                    u.rest_start = DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString();
                     u.availability = false;
-                }
-                else
-                {
-                    u.current_hours += f.flight_end.Subtract(f.flight_start).Hours;
-                    u.total_hours += f.flight_end.Subtract(f.flight_start).Hours;
+                    u.current_hours = 0;
                 }
             }
             db.Flights.Where(x => x.flight_number == flight_number).FirstOrDefault().completed = true;
-            db.AssignedFlights.Remove(db.AssignedFlights.Where(x => x.flight_number == flight_number).FirstOrDefault());
+            //db.AssignedFlights.Remove(db.AssignedFlights.Where(x => x.flight_number == flight_number).FirstOrDefault());
             db.SaveChanges();
             ViewBag.End = "Flight #: " + flight_number + " ended";
             return RedirectToAction("Current_Flights");
+        }
+        public ActionResult Completed_Flights()
+        {
+            return View(db.Flights.Where(x => x.completed == true).ToList());
         }
         protected override void Dispose(bool disposing)
         {

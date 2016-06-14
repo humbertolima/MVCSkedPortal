@@ -285,6 +285,7 @@
     <Content Include="Views\AssignedFlights\Edit.cshtml" />
     <Content Include="Views\AssignedFlights\Index.cshtml" />
     <Content Include="Views\Flights\Current_Flights.cshtml" />
+    <Content Include="Views\Flights\Completed_Flights.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

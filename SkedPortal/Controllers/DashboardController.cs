@@ -14,6 +14,7 @@ namespace SkedPortal.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            MvcApplication.Restart();
             User user = db.Users.Where(x => x.username == User.Identity.Name).FirstOrDefault();
             if (User.IsInRole("Admin"))
             {

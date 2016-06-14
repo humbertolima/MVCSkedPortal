@@ -17,17 +17,23 @@ namespace SkedPortal
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            Restart();
+            
+            
+        }
+        public static void Restart()
+        {
             SkedPortalEntities db = new SkedPortalEntities();
-            foreach(User u in db.Users.ToList())
+            foreach (User u in db.Users.ToList())
             {
-                if(u.availability==false && DateTime.Now.Subtract(DateTime.Parse(u.rest_start)).Hours >= 8)
+                if (u.availability == false && TimeSpan.Parse(u.rest_start).Subtract(DateTime.Now.TimeOfDay).Hours >= 8)
                 {
+                    u.current_hours = 0;
                     u.rest_start = "";
                     u.availability = true;
                 }
+                db.SaveChanges();
             }
-            
         }
     }
 }

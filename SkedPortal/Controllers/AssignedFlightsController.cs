@@ -45,6 +45,7 @@ namespace SkedPortal.Controllers
         // GET: AssignedFlights
         public ActionResult Index()
         {
+            MvcApplication.Restart();
             List<List<string>> crew = new List<List<string>>();
             List<AssignedFlight> af = db.AssignedFlights.ToList();
             foreach(var i in af)

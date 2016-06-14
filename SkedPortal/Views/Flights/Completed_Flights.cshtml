@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SkedPortal.Models.Flight>
+
+<table class="table">
+    <tr>
+        <th>
+            Flight Number
+        </th>
+        <th>
+            Flight Date
+        </th>
+        <th>
+            Flight Origin
+        </th>
+        <th>
+            Flight Start
+        </th>
+        <th>
+            Flight Destination
+        </th>
+        <th>
+            Flight End
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flight_end)
+            </td>
+            <td>
+                @Ajax.ActionLink("Crew", "Crew", "Dashboard", new { flight_number = item.flight_number }, new AjaxOptions() { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = item.flight_number.ToString() })
+            </td>
+        </tr>
+        <tbody id="@item.flight_number"></tbody>
+    }
+</table>
