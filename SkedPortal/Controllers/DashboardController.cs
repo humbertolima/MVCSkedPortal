@@ -26,23 +26,32 @@ namespace SkedPortal.Controllers
             else if (User.IsInRole("Pilot"))
             {
                 
-                List<Flight> fl = new List<Flight>();
+                List<Flight> f = new List<Flight>();
                 List<AssignedFlight> af = db.AssignedFlights.Where(x => x.captain == user.id || x.first_officer == user.id).ToList();
-                foreach(AssignedFlight f in af)
+                if (af.Count() > 0)
                 {
-                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true && x.completed == false).FirstOrDefault());
+                    foreach (AssignedFlight a in af)
+                    {
+                        f.Add(db.Flights.Where(x => x.flight_number == a.flight_number && x.completed==false).FirstOrDefault());
+                    }
                 }
-                return View(fl);
+                
+                return View(f.ToList());
             }
             else
             {
                 List<Flight> fl = new List<Flight>();
                 List<AssignedFlight> af = db.AssignedFlights.Where(x =>x.fal == user.id || x.fa1 == user.id || x.fa2 == user.id || x.fa3 == user.id || x.fa4 == user.id || x.fa5 == user.id).ToList();
-                foreach (AssignedFlight f in af)
+                if (af.Count() > 0)
                 {
-                    fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.assigned == true && x.completed == false).FirstOrDefault());
+                    foreach (AssignedFlight f in af)
+                    {
+                        fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.completed == false).First());
+                    }
+                
                 }
-                return View(fl);
+                
+                return View(fl.ToList());
             }
         }
         [HttpGet]

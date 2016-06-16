@@ -10,24 +10,13 @@ using SkedPortal.Models;
 
 namespace SkedPortal.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Pilot")]
     public class FlightsController : Controller
     {
 
         private SkedPortalEntities db = new SkedPortalEntities();
 
-        public bool Validate(Flight flight)
-        {
-            if (DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now) == 1)
-            {
-                ViewBag.Error = "Date is incorrect";
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+
 
         //Get
         public ActionResult Assign(int id)
@@ -67,7 +56,7 @@ namespace SkedPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,flight_number,flight_date,flight_origin,flight_start,flight_destination,flight_end,assigned,completed")] Flight flight)
         {
-            if (ModelState.IsValid && Validate(flight))
+            if (ModelState.IsValid && DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now.Date) >= 0)
             {
                 if (!Validate_flight(flight.flight_number, flight.id))
                 {
@@ -114,7 +103,7 @@ namespace SkedPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,flight_number,flight_date,flight_origin,flight_start,flight_destination,flight_end,assigned,completed")] Flight flight)
         {
-            if (ModelState.IsValid && Validate(flight))
+            if (ModelState.IsValid && DateTime.Parse(flight.flight_date).CompareTo(DateTime.Now.Date) >= 0)
             {
                 if (!Validate_flight(flight.flight_number, flight.id))
                 {
@@ -184,12 +173,32 @@ namespace SkedPortal.Controllers
         public ActionResult Current_Flights()
         {
             List<Flight> current = new List<Flight>();
-            List<Flight> temp = db.Flights.Where(x => x.assigned == true && x.completed == false).ToList();
-            foreach(Flight f in temp)
+            if (User.IsInRole("Admin"))
             {
-                if(DateTime.Parse(f.flight_date).CompareTo(DateTime.Now) <= 0 && f.flight_start.CompareTo(DateTime.Now.TimeOfDay) <= 0)
+                List<Flight> temp = db.Flights.Where(x => x.assigned == true && x.completed == false).ToList();
+                foreach (Flight f in temp)
                 {
-                    current.Add(f);
+                    if (DateTime.Parse(f.flight_date).CompareTo(DateTime.Now) <= 0 && f.flight_start.CompareTo(DateTime.Now.TimeOfDay) <= 0)
+                    {
+                        current.Add(f);
+                    }
+                }
+            }
+            else if(User.IsInRole("Pilot"))
+            {
+                User user = db.Users.Where(x => x.username == User.Identity.Name).FirstOrDefault();
+                List<AssignedFlight> af = db.AssignedFlights.Where(x => x.captain == user.id || x.first_officer == user.id).ToList();
+                List<Flight> temp = new List<Flight>();
+                foreach (AssignedFlight a in af)
+                {
+                     temp.Add(db.Flights.Where(x => x.completed == false && x.flight_number == a.flight_number).FirstOrDefault());
+                }
+                foreach (Flight f in temp)
+                {
+                    if (DateTime.Parse(f.flight_date).CompareTo(DateTime.Now) <= 0 && f.flight_start.CompareTo(DateTime.Now.TimeOfDay) <= 0)
+                    {
+                        current.Add(f);
+                    }
                 }
             }
             return View(current);
