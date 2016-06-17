@@ -32,7 +32,9 @@ namespace SkedPortal.Controllers
                 {
                     foreach (AssignedFlight a in af)
                     {
-                        f.Add(db.Flights.Where(x => x.flight_number == a.flight_number && x.completed==false).FirstOrDefault());
+                        Flight temp = db.Flights.Where(x => x.flight_number == a.flight_number).FirstOrDefault();
+                        if (temp.completed == false)
+                            f.Add(temp);
                     }
                 }
                 
@@ -46,7 +48,9 @@ namespace SkedPortal.Controllers
                 {
                     foreach (AssignedFlight f in af)
                     {
-                        fl.Add(db.Flights.Where(x => x.flight_number == f.flight_number && x.completed == false).First());
+                        Flight temp = db.Flights.Where(x => x.flight_number == f.flight_number).FirstOrDefault();
+                        if (temp.completed == false)
+                            fl.Add(temp);
                     }
                 
                 }

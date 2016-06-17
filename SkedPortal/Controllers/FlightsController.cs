@@ -191,7 +191,9 @@ namespace SkedPortal.Controllers
                 List<Flight> temp = new List<Flight>();
                 foreach (AssignedFlight a in af)
                 {
-                     temp.Add(db.Flights.Where(x => x.completed == false && x.flight_number == a.flight_number).FirstOrDefault());
+                     Flight f = db.Flights.Where(x =>x.flight_number == a.flight_number).FirstOrDefault();
+                    if (f.completed == false)
+                        temp.Add(f);
                 }
                 foreach (Flight f in temp)
                 {
