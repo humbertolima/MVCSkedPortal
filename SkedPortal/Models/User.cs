@@ -11,25 +11,16 @@ namespace SkedPortal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         public int id { get; set; }
         public byte[] photo { get; set; }
-        [Required]
         public string first_name { get; set; }
-        [Required]
         public string last_name { get; set; }
-        [Required]
-        [EmailAddress]
         public string email { get; set; }
-        [Required]
         public string username { get; set; }
-        [Required]
-        [MinLength(6)]
         public string hash { get; set; }
-        [Required]
         public string permissions { get; set; }
         public Nullable<double> total_hours { get; set; }
         public Nullable<double> current_hours { get; set; }

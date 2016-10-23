@@ -12,11 +12,12 @@ namespace SkedPortal.Controllers
     public class AccountController : Controller
     {
         private SkedPortalEntities db = new SkedPortalEntities();
-    
+        
         [HttpGet]
         public ActionResult Login()
         {
-            if(User.Identity.IsAuthenticated)
+            MvcApplication.Restart();
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
             }

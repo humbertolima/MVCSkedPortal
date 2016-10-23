@@ -107,7 +107,7 @@
           <Property Name="permissions" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="total_hours" Type="Double" />
           <Property Name="current_hours" Type="Double" />
-          <Property Name="rest_start" Type="String" />
+          <Property Name="rest_start" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="availability" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="SkedPortalEntities" annotation:LazyLoadingEnabled="true">
